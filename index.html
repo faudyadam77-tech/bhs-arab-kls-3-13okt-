@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Menyimak Bahasa Arab Kelas 3 SD - Anggota Keluarga</title>
+    <!-- Google Fonts: Nunito & Amiri -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #db2777 100%);
+            min-height: 100vh;
+        }
+        .arabic-text {
+            font-family: 'Amiri', serif;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .floating-badge {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .pop-in {
+            animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .option-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-card:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+        @keyframes soundWave {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 0.3; }
+        }
+        .audio-wave {
+            animation: soundWave 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4 sm:p-6 md:p-8">
+
+    <div class="max-w-2xl w-full bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-6 sm:p-8 relative overflow-hidden border-4 border-indigo-100">
+        
+        <!-- Decorative Top Ribbon -->
+        <div class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-amber-400 via-rose-500 to-indigo-500"></div>
+
+        <!-- Header Section -->
+        <div class="text-center mb-6 pt-2">
+            <div class="inline-block bg-indigo-50 text-indigo-700 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-2 shadow-inner">
+                🎧 Latihan Menyimak (Istima') • Kelas 3 SD
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
+                Kosakata Anggota Keluarga 👨‍👩‍👧‍👦
+            </h1>
+            <p class="text-sm text-slate-500 mt-1 font-semibold">Dengarkan suaranya baik-baik, lalu pilih arti kata yang benar!</p>
+        </div>
+
+        <!-- Quiz Container (Active State) -->
+        <div id="quizContent" class="space-y-6">
+            
+            <!-- Progress Bar & Status Info -->
+            <div class="space-y-2">
+                <div class="flex justify-between items-center text-xs sm:text-sm font-bold text-slate-600 px-1">
+                    <span id="questionNumber" class="bg-indigo-600 text-white px-3 py-1 rounded-full shadow-sm">Soal 1 / 10</span>
+                    <span id="scoreDisplay" class="bg-emerald-500 text-white px-3 py-1 rounded-full shadow-sm">⭐ Skor: 0</span>
+                </div>
+                <div class="w-full bg-slate-100 h-3.5 rounded-full overflow-hidden p-0.5 shadow-inner">
+                    <div id="progressFill" class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-500 w-0"></div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 text-center border-2 border-indigo-100/80 shadow-sm relative my-2">
+                
+                <div class="absolute -top-3 right-4 bg-amber-400 text-amber-950 text-xs font-black px-3 py-1 rounded-full shadow-sm floating-badge">
+                    Tekan Tombol Suara 🔊
+                </div>
+
+                <p class="text-xs font-bold text-indigo-500 uppercase tracking-widest mb-4">Dengarkan Pelafalan Arab</p>
+                
+                <!-- Big Interactive Audio Button (No Arabic Text Shown) -->
+                <div class="relative inline-flex items-center justify-center my-2">
+                    <div id="waveRing" class="hidden absolute inset-0 rounded-full bg-indigo-400 audio-wave"></div>
+                    <button onclick="playAudio()" id="listenBtn" class="group relative z-10 w-28 h-28 sm:w-32 sm:h-32 inline-flex flex-col items-center justify-center p-4 bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-full shadow-xl hover:shadow-indigo-400/50 hover:scale-105 active:scale-95 transition-all duration-300 border-4 border-white">
+                        <svg class="w-12 h-12 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                        </svg>
+                        <span id="btnText" class="text-xs font-black mt-1">PUTAR SUARA</span>
+                    </button>
+                </div>
+
+                <!-- Text-to-Speech Reveal Card after answering (Optional hint) -->
+                <div id="revealedWord" class="hidden mt-4 pt-3 border-t border-indigo-100 text-indigo-900 font-bold">
+                    <span class="text-xs text-slate-500 block">Tulisan Arab yang diucapkan:</span>
+                    <span id="revealedArabic" class="arabic-text text-3xl font-bold text-indigo-700 leading-relaxed"></span>
+                </div>
+
+                <p id="audioInstruction" class="text-xs text-indigo-600 font-bold mt-3">💡 Ketuk tombol di atas untuk memutar / mengulang suara</p>
+            </div>
+
+            <div id="optionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <!-- Options dynamically created -->
+            </div>
+
+            <!-- Feedback Banner -->
+            <div id="feedback" class="hidden rounded-2xl p-4 text-center font-bold text-base shadow-sm transition-all pop-in"></div>
+
+            <!-- Next Button -->
+            <div class="text-center pt-2">
+                <button id="nextBtn" onclick="nextQuestion()" class="hidden w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                    Soal Berikutnya ➡️
+                </button>
+            </div>
+        </div>
+
+        <div id="resultScreen" class="hidden text-center py-8 space-y-6 pop-in">
+            <div id="resultEmoji" class="text-6xl sm:text-7xl animate-bounce">🏆</div>
+            <div id="resultStars" class="text-3xl sm:text-4xl tracking-widest">⭐⭐⭐⭐⭐</div>
+            <div>
+                <h2 class="text-slate-500 font-bold text-sm uppercase tracking-wider mb-1">Skor Akhir Menyimak Kamu</h2>
+                <div id="resultScore" class="text-4xl sm:text-5xl font-black text-indigo-900">10 / 10</div>
+            </div>
+            <p id="resultText" class="text-lg font-bold text-slate-700 bg-indigo-50 py-3 px-6 rounded-2xl inline-block max-w-md mx-auto border border-indigo-100">
+                Hebat sekali! Pendengaranmu sangat tajam dalam bahasa Arab! 🎉
+            </p>
+            <div class="pt-2">
+                <button onclick="restartQuiz()" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-extrabold rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                    🔄 Mainkan Kuis Lagi
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const questions = [
+            {
+                arabic: 'أَبٌ',
+                audio: 'https://cdn.jsdelivr.net/gh/faudyadam77-tech/Suara-kosakata-keluarga@main/abun.mp3',
+                correctAnswer: 'Bapak / Ayah',
+                options: ['Bapak / Ayah', 'Ibu', 'Kakek', 'Paman']
+            },
+            {
+                arabic: 'أَخٌ',
+                audio: 'https://cdn.jsdelivr.net/gh/faudyadam77-tech/Suara-kosakata-keluarga@main/akhun.mp3',
+                correctAnswer: 'Saudara Laki-laki',
+                options: ['Saudara Perempuan', 'Saudara Laki-laki', 'Paman', 'Kakek']
+            },
+            {
+                arabic: 'أُخْتٌ',
+                audio: 'https://cdn.jsdelivr.net/gh/faudyadam77-tech/Suara-kosakata-keluarga@main/ukhtun.mp3',
+                correctAnswer: 'Saudara Perempuan',
+                options: ['Saudara Laki-laki', 'Bibi', 'Saudara Perempuan', 'Nenek']
+            },
+            {
+                arabic: 'جَدٌّ',
+                audio: 'https://cdn.jsdelivr.net/gh/faudyadam77-tech/Suara-kosakata-keluarga@main/jaddun.mp3',
+                correctAnswer: 'Kakek',
+                options: ['Nenek', 'Paman', 'Bapak / Ayah', 'Kakek']
+            },
+            {
+                arabic: 'جَدَّةٌ',
+                audio: 'https://cdn.jsdelivr.net/gh/faudyadam77-tech/Suara-kosakata-keluarga@main/jaddatun.mp3',
+                correctAnswer: 'Nenek',
+                options: ['Bibi', 'Nenek', 'Ibu', 'Saudara Perempuan']
+            },
+            {
+                arabic: 'عَمٌّ',
+                audio: 'https://cdn.jsdelivr.net/gh/faudyadam77-tech/Suara-kosakata-keluarga@main/ammun.mp3',
+                correctAnswer: 'Paman',
+                options: ['Bapak / Ayah', 'Kakek', 'Paman', 'Saudara Laki-laki']
+            },
+            {
+                arabic: 'عَمَّةٌ',
+                audio: 'https://cdn.jsdelivr.net/gh/faudyadam77-tech/Suara-kosakata-keluarga@main/ammatun.mp3',
+                correctAnswer: 'Bibi',
+                options: ['Nenek', 'Ibu', 'Saudara Perempuan', 'Bibi']
+            },
+            {
+                arabic: 'أَبٌ',
+                audio: 'https://cdn.jsdelivr.net/gh/faudyadam77-tech/Suara-kosakata-keluarga@main/abun.mp3',
+                correctAnswer: 'Bapak / Ayah',
+                options: ['Kakek', 'Paman', 'Bapak / Ayah', 'Saudara Laki-laki']
+            },
+            {
+                arabic: 'جَدٌّ',
+                audio: 'https://cdn.jsdelivr.net/gh/faudyadam77-tech/Suara-kosakata-keluarga@main/jaddun.mp3',
+                correctAnswer: 'Kakek',
+                options: ['Kakek', 'Bapak / Ayah', 'Paman', 'Saudara Laki-laki']
+            },
+            {
+                arabic: 'أُخْتٌ',
+                audio: 'https://cdn.jsdelivr.net/gh/faudyadam77-tech/Suara-kosakata-keluarga@main/ukhtun.mp3',
+                correctAnswer: 'Saudara Perempuan',
+                options: ['Ibu', 'Saudara Perempuan', 'Bibi', 'Nenek']
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+        let currentAudio = null;
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function playAudio() {
+            const q = questions[currentQuestion];
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+
+            currentAudio = new Audio(q.audio);
+            const btn = document.getElementById('listenBtn');
+            const btnText = document.getElementById('btnText');
+            const waveRing = document.getElementById('waveRing');
+
+            btnText.textContent = 'MEMUTAR...';
+            waveRing.classList.remove('hidden');
+
+            currentAudio.play().catch(error => {
+                console.warn("Menggunakan Text-to-Speech fallback:", error);
+                const utterance = new SpeechSynthesisUtterance(q.arabic);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7;
+                window.speechSynthesis.speak(utterance);
+                
+                utterance.onend = () => {
+                    btnText.textContent = 'PUTAR SUARA';
+                    waveRing.classList.add('hidden');
+                };
+            });
+
+            currentAudio.onended = () => {
+                btnText.textContent = 'PUTAR SUARA';
+                waveRing.classList.add('hidden');
+            };
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const q = questions[currentQuestion];
+
+            // Update progress
+            const progressPercentage = (currentQuestion / questions.length) * 100;
+            document.getElementById('progressFill').style.width = `${progressPercentage}%`;
+            document.getElementById('questionNumber').textContent = `Soal ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('scoreDisplay').textContent = `⭐ Skor: ${score}`;
+
+            // Hide Arabic reveal card for the new question
+            document.getElementById('revealedWord').classList.add('hidden');
+
+            // Hide Feedback & Next Button
+            const feedback = document.getElementById('feedback');
+            feedback.className = 'hidden';
+            document.getElementById('nextBtn').classList.add('hidden');
+
+            // Reset Button states
+            document.getElementById('btnText').textContent = 'PUTAR SUARA';
+            document.getElementById('waveRing').classList.add('hidden');
+
+            // Render Options
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            const shuffledOptions = shuffleArray(q.options);
+
+            shuffledOptions.forEach(option => {
+                const btnOption = document.createElement('button');
+                btnOption.className = 'option-card p-4 rounded-2xl border-2 border-slate-200 bg-white font-bold text-slate-700 text-base sm:text-lg text-center shadow-sm hover:border-indigo-400 hover:bg-indigo-50/40 focus:outline-none';
+                btnOption.textContent = option;
+                btnOption.onclick = () => selectAnswer(btnOption, option, q.correctAnswer);
+                container.appendChild(btnOption);
+            });
+
+            // Auto-play audio when loading question
+            setTimeout(() => {
+                playAudio();
+            }, 400);
+        }
+
+        function selectAnswer(btn, selected, correct) {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentQuestion];
+            const allBtns = document.querySelectorAll('#optionsContainer button');
+            allBtns.forEach(b => b.disabled = true);
+
+            // Show the Arabic word as feedback AFTER answering
+            document.getElementById('revealedArabic').textContent = q.arabic;
+            document.getElementById('revealedWord').classList.remove('hidden');
+
+            const feedback = document.getElementById('feedback');
+            feedback.classList.remove('hidden');
+
+            if (selected === correct) {
+                btn.className = 'option-card p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 font-bold text-emerald-700 text-base sm:text-lg text-center shadow-md';
+                score++;
+                feedback.className = 'rounded-2xl p-4 text-center font-bold text-base bg-emerald-100 text-emerald-800 border-2 border-emerald-300 shadow-sm pop-in';
+                feedback.innerHTML = '🎉 Jawaban kamu tepat sekali! Hebat! 🌟';
+            } else {
+                btn.className = 'option-card p-4 rounded-2xl border-2 border-rose-500 bg-rose-50 font-bold text-rose-700 text-base sm:text-lg text-center shadow-md';
+                allBtns.forEach(b => {
+                    if (b.textContent === correct) {
+                        b.className = 'option-card p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 font-bold text-emerald-700 text-base sm:text-lg text-center shadow-md';
+                    }
+                });
+                feedback.className = 'rounded-2xl p-4 text-center font-bold text-base bg-rose-100 text-rose-800 border-2 border-rose-300 shadow-sm pop-in';
+                feedback.innerHTML = `❌ Kurang tepat. Arti kata yang diucapkan adalah: <b>"${correct}"</b>`;
+            }
+
+            document.getElementById('scoreDisplay').textContent = `⭐ Skor: ${score}`;
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.classList.remove('hidden');
+
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.textContent = 'Lihat Hasil Kuis 🏆';
+            } else {
+                nextBtn.textContent = 'Soal Berikutnya ➡️';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= questions.length) {
+                showResult();
+                return;
+            }
+            loadQuestion();
+        }
+
+        function showResult() {
+            document.getElementById('quizContent').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+
+            document.getElementById('progressFill').style.width = '100%';
+
+            const percentage = (score / questions.length) * 100;
+            let emoji, stars, text;
+
+            if (percentage === 100) {
+                emoji = '🏆';
+                stars = '⭐⭐⭐⭐⭐';
+                text = 'Sempurna! Kamu jago sekali menyimak Bahasa Arab! 🎉';
+            } else if (percentage >= 80) {
+                emoji = '🌟';
+                stars = '⭐⭐⭐⭐';
+                text = 'Luar biasa! Pendengaranmu sangat tajam!';
+            } else if (percentage >= 60) {
+                emoji = '😊';
+                stars = '⭐⭐⭐';
+                text = 'Bagus! Terus berlatih menyimak lagi ya!';
+            } else {
+                emoji = '💪';
+                stars = '⭐⭐';
+                text = 'Jangan menyerah, yuk coba dengarkan lagi!';
+            }
+
+            document.getElementById('resultEmoji').textContent = emoji;
+            document.getElementById('resultStars').textContent = stars;
+            document.getElementById('resultScore').textContent = `${score} / ${questions.length}`;
+            document.getElementById('resultText').textContent = text;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('quizContent').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        window.onload = function() {
+            loadQuestion();
+        };
+    </script>
+</body>
+</html>
